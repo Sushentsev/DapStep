@@ -1,0 +1,37 @@
+[
+  {
+    "name": "line_edited",
+    "params": {}
+  },
+  {
+    "name": "line_dist",
+    "params": {}
+  },
+  {
+    "name": "norm_num_edited_lines",
+    "params": {}
+  },
+  {
+    "name": "norm_num_edited_lines_window",
+    "params": {
+      "up": 10,
+      "down": 10
+    }
+  },
+  {
+    "name": "num_different_ts",
+    "params": {}
+  },
+  {
+    "name": "weight_last_edit",
+    "params": {}
+  },
+  {
+    "name": "weight_norm_num_lines_last_edited",
+    "params": {}
+  },
+  {
+    "name": "time_from_first_edit",
+    "params": {}
+  }
+]

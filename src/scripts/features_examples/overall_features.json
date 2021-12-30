@@ -1,0 +1,46 @@
+[
+  {
+    "name": "first_edited_frame",
+    "params": {}
+  },
+  {
+    "name": "part_edited_error_lines",
+    "params": {}
+  },
+  {
+    "name": "part_edited_error_lines",
+    "params": {
+      "top_k": 25
+    }
+  },
+  {
+    "name": "part_edited_frames",
+    "params": {}
+  },
+  {
+    "name": "part_edited_frames",
+    "params": {
+      "top_k": 25
+    }
+  },
+  {
+    "name": "part_edited_lines",
+    "params": {}
+  },
+  {
+    "name": "part_edited_lines",
+    "params": {
+      "top_k": 25
+    }
+  },
+  {
+    "name": "part_edited_lines_max_idf_frame",
+    "params": {}
+  },
+  {
+    "name": "part_edited_lines_max_idf_frame",
+    "params": {
+      "top_k": 25
+    }
+  }
+]
