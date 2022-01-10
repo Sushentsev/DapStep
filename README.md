@@ -1,10 +1,19 @@
-# DapStep: Deep Assignee Prediction for Stack Trace Error rePresentation
+# DapStep
 
-# Data
+DapStep is an algorithm for predicting assignees presented in our paper "DapStep: Deep Assignee Prediction for Stack Trace Error rePresentation".
 
-## Format 
+## Dataset
 
-The data consists of bug reports, annotations, and labels.
+The public dataset presented in the paper can be found [here](https://zenodo.org/record/5833738).
+
+### Format 
+
+The Assignee Prediction Dataset consists of error stack traces and annotations to them. All annotations were collected from the [IntelliJ IDEA Community](https://github.com/JetBrains/intellij-community) using the ```git blame``` command. The dataset is anonymized, each entity is encoded with a unique identifier, all the temporal data has been shifted by a fixed timestamp. The data is presented as follows: 
+
+- the ```reports``` directory contains error reports, each report includes a unique report identifier (**id**), error time (**timestamp**), and a stack trace (**elements**). Each stack frame consists of the method name (**name**), file name (**file_name**), line number (**line_number**), annotation commit hash (**commit_hash**), and subsystem (**subsystem**).
+- the ```files``` directory contains annotations where the name of each annotation is ```{commit_hash}:{file_name}:annotation.csv```.
+- the ```labels.csv``` file associates each error report (**rid**) with the developer (**uid**) who fixed the given error  .
+
 The **bug report** is presented in the following JSON:
 ```
 {
@@ -29,11 +38,11 @@ The **bug report** is presented in the following JSON:
 }
 ```
 where
-- `id` – identifier of report
-- `timestamp` – timestamp of report creation (Unix time)
+- `id` – identifier of the report
+- `timestamp` – timestamp of the report creation (Unix time)
 - `elements` – sequence of stack frames starting from the top of the stack
 
-The **annotation** is presented in CSV file: 
+The **annotation** is presented in the CSV file: 
 ```
 commit_hash,author,timestamp
 580dsbcfd18374a14575b65085ba46adea8b015d,24,1108830319000
@@ -41,9 +50,9 @@ commit_hash,author,timestamp
 9d26b217254b099c9d3ae919cfbvbd0e4d8efa42,123,1641999406000
 ```
 where 
-- `commit_hash` – commit hash of last edit
-- `author` – identifier of developer
-- `timestamp` – timestamp of last edit (Unix time)
+- `commit_hash` – commit hash of the last edit
+- `author` – identifier of the developer
+- `timestamp` – timestamp of the last edit (Unix time)
 
 The **labels** CSV file looks like this:
 ```
@@ -53,10 +62,10 @@ rid,uid
 4,116
 ```
 where 
-- `rid` – identifier of report
-- `uid` – identifier of developer
+- `rid` – identifier of the report
+- `uid` – identifier of the developer
 
-# Usage
+## How to use
 
 ### Install
 ```
@@ -65,7 +74,7 @@ pip install -r requirements.txt
 
 ### Train ranking DL-based models
 
-The example of train config is in ```src/scripts/configs/dl_ranking.yaml``` and has the following form:
+The example of a train config can be found in ```src/scripts/configs/dl_ranking.yaml``` and has the following form:
 ```
 data_dir: data_dir
 features_dir: features_dir
@@ -93,20 +102,20 @@ train:
   update_every: 4
 ```
 where 
-- `data_dir` – directory where data is stored. 
+- `data_dir` – directory where the data is stored 
   The directory should have the following structure: 
   - `reports` folder with all reports in JSON format 
   - `files` folder with all annotations in CSV format
   - `labels.csv` file with report labels
-- `features_dir` – directory with features. 
-  The example of features directory is ```src/scripts/features_examples```. 
+- `features_dir` – directory with features
+  The example of such directory can be found in ```src/scripts/features_examples```
   The lists of all features are presented in ```src/features/features_maps.py```
-- `save_dir` – directory where the model files will be saved
+- `save_dir` – directory where the model files will be saved to
 - `data_split` – time-based data splitting
-- `coder` – parameters of sequence coder 
+- `coder` – parameters of the sequence coder 
 - `model` – model type (```cnn``` or ```rnn```)
-- `optimizer` – parameters of optimizer
-- `train` – parameters of training
+- `optimizer` – parameters of the optimizer
+- `train` – parameters of the training
 
 Run train: 
 ```
@@ -131,3 +140,11 @@ python eval.py --data_dir=<DATA_DIR>
 --model_dir=<MODEL_DIR> --features_dir=<FEATURES_DIR> 
 --test_size=<TEST_SIZE>
 ```
+
+## How this works
+
+**TBD: add the link to the paper.**
+
+## Contacts
+
+If you have any questions or suggestions, feel free to create an issue or reach Denis Sushentsev at [denis.sushentsev@jetbrains.com](mailto:denis.sushentsev@jetbrains.com).
